@@ -31,8 +31,7 @@ export default class App extends React.Component {
     wifeName: getParams(window.location.href).wifeName,
     wifeJob: getParams(window.location.href).wifeJob,
     wifePhone: getParams(window.location.href).wifePhone,
-    numberOfFamilyMembers: getParams(window.location.href)
-      .numberOfFamilyMembers,
+    numberOfFamilyMembers: getParams(window.location.href).numberOfFamilyMembers,
     males: getParams(window.location.href).males,
     females: getParams(window.location.href).females,
     state: getParams(window.location.href).state,
