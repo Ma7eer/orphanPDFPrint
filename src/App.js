@@ -47,7 +47,7 @@ export default class App extends React.Component {
     startDate: getParams(window.location.href).startDate
   };
 
-  conmponentWillMount() {
+  componentWillMount() {
     Axios.get(`https://dashboard.alrahma-baraka.com:5001/orphanSponsor/${this.state.sponsorId}`, {
       headers: { Authorization: "Bearer " + localStorage.getItem("jwtToken") }
     }).then(res => console.log(res));
