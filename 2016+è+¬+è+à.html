@@ -27,8 +27,8 @@ var getParams = function (url) {
 	return params;
 };
 console.log(getParams(window.location.href));
-let x = document.getElementsByClassName("orphanName");
-x.innerHTML = getParams(window.location.href).orphaneName;
+var x = document.getElementsByClassName("orphanName");
+x[0].innerHTML = getParams(window.location.href).orphanName;
 console.log(x.innerHTML);
 </script>
 <title></title>
