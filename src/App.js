@@ -1,5 +1,6 @@
 import React from "react";
 import Background from "./background1.jpg";
+import Axios from "axios";
 // import "./styles.css";
 
 var getParams = function(url) {
@@ -45,6 +46,13 @@ export default class App extends React.Component {
     paymentMethod: getParams(window.location.href).paymentMethod,
     startDate: getParams(window.location.href).startDate
   };
+
+  conmponentWillMount() {
+    Axios.get(`https://dashboard.alrahma-baraka.com:5001/orphanSponsor/${this.state.sponsorId}`, {
+      headers: { Authorization: "Bearer " + localStorage.getItem("jwtToken") }
+    }).then(res => console.log(res));
+  }
+
   render() {
     return (
       <div dir="rtl">
