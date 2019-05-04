@@ -43,7 +43,7 @@ theViewer.defaultViewer = new theViewer.Viewer({});
 };
 console.log(getParams(window.location.href));
 var x = document.getElementsByClassName("orphanName");
-console.log(x);
+console.log(x[0]);
 x.innerHTML = getParams(window.location.href).orphanName;
 console.log(x.innerHTML);
 </script>
