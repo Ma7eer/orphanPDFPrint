@@ -44,13 +44,13 @@ export default class App extends React.Component {
     sponsorAmount: getParams(window.location.href).sponsorAmount,
     sponsorNationality: getParams(window.location.href).sponsorNationality,
     paymentMethod: getParams(window.location.href).paymentMethod,
-    startDate: getParams(window.location.href).startDate
+    startDate: getParams(window.location.href).startDate,
   };
 
   componentWillMount() {
     Axios.get(`https://dashboard.alrahma-baraka.com:5001/orphanSponsors/${this.state.sponsorId}`, {
       headers: { Authorization: "Bearer " + localStorage.getItem("jwtToken") }
-    }).then(res => console.log(res));
+    }).then(res => this.setState({numberOfSponsored: res.data.data[0].numberOfSponsored, paymentMethod: res.data.data[0].paymentMethod, sponsorAmount: res.data.data[0].sponsorAmount,sponsorName: res.data.data[0].sponsorName, sponsorNationality: res.data.data[0].sponsorNationality, sponsorPhone: res.data.data[0].sponsorPhone, startDate:res.data.data[0].startDate})).catch(err => console.log(err));
   }
 
   render() {
