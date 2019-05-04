@@ -48,7 +48,7 @@ export default class App extends React.Component {
   };
 
   componentWillMount() {
-    Axios.get(`https://dashboard.alrahma-baraka.com:5001/orphanSponsor/${this.state.sponsorId}`, {
+    Axios.get(`https://dashboard.alrahma-baraka.com:5001/orphanSponsors/${this.state.sponsorId}`, {
       headers: { Authorization: "Bearer " + localStorage.getItem("jwtToken") }
     }).then(res => console.log(res));
   }
