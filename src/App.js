@@ -29,14 +29,14 @@ export default class App extends React.Component {
     notes: getParams(window.location.href).notes,
     fatherDeathDate: getParams(window.location.href).fatherDeathDate,
     orphanFamilyId: getParams(window.location.href).orphanFamilyId,
-    wifeName: getParams(window.location.href).wifeName,
-    wifeJob: getParams(window.location.href).wifeJob,
-    wifePhone: getParams(window.location.href).wifePhone,
+    motherName: getParams(window.location.href).motherName,
+    motherJob: getParams(window.location.href).motherJob,
+    motherPhone: getParams(window.location.href).motherPhone,
     numberOfFamilyMembers: getParams(window.location.href).numberOfFamilyMembers,
     males: getParams(window.location.href).males,
     females: getParams(window.location.href).females,
     state: getParams(window.location.href).state,
-    town: getParams(window.location.href).town,
+    region: getParams(window.location.href).region,
     sponsorId: getParams(window.location.href).sponsorId,
     sponsorName: getParams(window.location.href).sponsorName,
     numberOfSponsored: getParams(window.location.href).numberOfSponsored,
@@ -371,7 +371,7 @@ export default class App extends React.Component {
           >
             <input
               type="text"
-              value={this.state.wifeName}
+              value={this.state.motherName}
               className="cls_010"
               style={{ width: "100px", border: "none", color: "blue" }}
             />
@@ -407,7 +407,7 @@ export default class App extends React.Component {
           >
             <input
               type="text"
-              value={this.state.wifePhone}
+              value={this.state.motherPhone}
               className="cls_010"
               style={{ width: "100px", border: "none", color: "blue" }}
             />
@@ -427,7 +427,7 @@ export default class App extends React.Component {
           >
             <input
               type="text"
-              value={this.state.wifeJob}
+              value={this.state.motherJob}
               className="cls_010"
               style={{ width: "120px", border: "none", color: "blue" }}
             />
@@ -446,7 +446,7 @@ export default class App extends React.Component {
           >
             <input
               type="text"
-              value={this.state.town}
+              value={this.state.region}
               className="cls_010"
               style={{ width: "160px", border: "none", color: "blue" }}
             />
