@@ -2,6 +2,7 @@ import React from "react";
 import Background from "./background1.jpg";
 import Axios from "axios";
 // import "./styles.css";
+import ReactToPrint from 'react-to-print';
 
 var getParams = function(url) {
   var params = {};
@@ -17,7 +18,7 @@ var getParams = function(url) {
 };
 console.log(getParams(window.location.href));
 
-export default class App extends React.Component {
+class PrintPage extends React.Component {
   state = {
     orphanId: getParams(window.location.href).orphanId,
     orphanName: getParams(window.location.href).orphanName,
@@ -704,5 +705,19 @@ export default class App extends React.Component {
         </div>
       </div>
     );
+  }
+}
+
+export default class App extends React.Component {
+  render() {
+    return (
+      <>
+      <ReactToPrint
+        trigger={() => <a href="#">طباعة</a>}
+        content={() => this.componentRef}
+      />
+      <PrintPage ref={el => (this.componentRef = el)} />
+    </>
+    )
   }
 }
