@@ -2,7 +2,7 @@ import React from "react";
 import Background from "./background1.jpg";
 import Axios from "axios";
 // import "./styles.css";
-import ReactToPrint from 'react-to-print';
+import ReactToPrint from "react-to-print";
 
 var getParams = function(url) {
   var params = {};
@@ -33,7 +33,8 @@ class PrintPage extends React.Component {
     motherName: getParams(window.location.href).motherName,
     motherJob: getParams(window.location.href).motherJob,
     motherPhone: getParams(window.location.href).motherPhone,
-    numberOfFamilyMembers: getParams(window.location.href).numberOfFamilyMembers,
+    numberOfFamilyMembers: getParams(window.location.href)
+      .numberOfFamilyMembers,
     males: getParams(window.location.href).males,
     females: getParams(window.location.href).females,
     state: getParams(window.location.href).state,
@@ -45,13 +46,68 @@ class PrintPage extends React.Component {
     sponsorAmount: getParams(window.location.href).sponsorAmount,
     sponsorNationality: getParams(window.location.href).sponsorNationality,
     paymentMethod: getParams(window.location.href).paymentMethod,
-    startDate: getParams(window.location.href).startDate,
+    startDate: getParams(window.location.href).startDate
   };
 
-  componentWillMount() {
-    Axios.get(`https://dashboard.alrahma-baraka.com:5001/orphanSponsors/${this.state.sponsorId}`, {
-      headers: { Authorization: "Bearer " + localStorage.getItem("jwtToken") }
-    }).then(res => this.setState({numberOfSponsored: res.data.data[0].numberOfSponsored, paymentMethod: res.data.data[0].paymentMethod, sponsorAmount: res.data.data[0].sponsorAmount,sponsorName: res.data.data[0].sponsorName, sponsorNationality: res.data.data[0].sponsorNationality, sponsorPhone: res.data.data[0].sponsorPhone, startDate:res.data.data[0].startDate})).catch(err => console.log(err));
+  async componentWillMount() {
+    await Axios.get(
+      `https://dashboard.alrahma-baraka.com:5001/orphanSponsors/${this.state.sponsorId}`,
+      {
+        headers: { Authorization: "Bearer " + localStorage.getItem("jwtToken") }
+      }
+    )
+      .then(res => {
+        console.log(res);
+        this.setState({
+          numberOfSponsored: res.data.data[0].numberOfSponsored,
+          paymentMethod: res.data.data[0].paymentMethod,
+          sponsorAmount: res.data.data[0].sponsorAmount,
+          sponsorName: res.data.data[0].sponsorName,
+          sponsorNationality: res.data.data[0].sponsorNationality,
+          sponsorPhone: res.data.data[0].sponsorPhone,
+          startDate: res.data.data[0].startDate
+        });
+      })
+      .catch(err => console.log(err));
+
+    await Axios.get(
+      `https://dashboard.alrahma-baraka.com:5001/orphans/${this.state.orphanId}`,
+      {
+        headers: { Authorization: "Bearer " + localStorage.getItem("jwtToken") }
+      }
+    ).then(res => {
+      // console.log(res);
+      this.setState({
+        orphanName: res.data.data[0].orphanName,
+        orphanSex: res.data.data[0].orphanSex,
+        orphanNationality: res.data.data[0].orphanNationality,
+        orphanDateOfBirth: res.data.data[0].orphanDateOfBirth,
+        placeOfBirth: res.data.data[0].placeOfBirth,
+        orphanHealth: res.data.data[0].orphanHealth,
+        notes: res.data.data[0].notes,
+        fatherDeathDate: res.data.data[0].fatherDeathDate,
+        orphanFamilyId: res.data.data[0].orphanFamilyId
+      });
+    });
+
+    await Axios.get(
+      `https://dashboard.alrahma-baraka.com:5001/orphanFamily/getOne/${this.state.orphanFamilyId}`,
+      {
+        headers: { Authorization: "Bearer " + localStorage.getItem("jwtToken") }
+      }
+    ).then(res => {
+      console.log(res);
+      this.setState({
+        motherName: res.data.data[0].motherName,
+        motherJob: res.data.data[0].motherJob,
+        motherPhone: res.data.data[0].motherPhone,
+        numberOfFamilyMembers: res.data.data[0].numberOfFamilyMembers,
+        males: res.data.data[0].males,
+        females: res.data.data[0].females,
+        state: res.data.data[0].state,
+        region: res.data.data[0].region
+      });
+    });
   }
 
   render() {
@@ -712,12 +768,12 @@ export default class App extends React.Component {
   render() {
     return (
       <>
-      <ReactToPrint
-        trigger={() => <a href="#">طباعة</a>}
-        content={() => this.componentRef}
-      />
-      <PrintPage ref={el => (this.componentRef = el)} />
-    </>
-    )
+        <ReactToPrint
+          trigger={() => <a href="#">طباعة</a>}
+          content={() => this.componentRef}
+        />
+        <PrintPage ref={el => (this.componentRef = el)} />
+      </>
+    );
   }
 }
