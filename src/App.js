@@ -21,9 +21,9 @@ console.log(getParams(window.location.href));
 class PrintPage extends React.Component {
   state = {
     orphanId: getParams(window.location.href).orphanId,
-    orphanName: getParams(window.location.href).orphanName,
-    orphanSex: getParams(window.location.href).orphanSex,
-    orphanNationality: getParams(window.location.href).orphanNationality,
+    orphanName: "",
+    orphanSex: "",
+    orphanNationality: "",
     orphanDateOfBirth: getParams(window.location.href).orphanDateOfBirth,
     placeOfBirth: getParams(window.location.href).placeOfBirth,
     orphanHealth: getParams(window.location.href).orphanHealth,
@@ -57,7 +57,7 @@ class PrintPage extends React.Component {
       }
     )
       .then(res => {
-        console.log(res);
+        // console.log(res);
         this.setState({
           numberOfSponsored: res.data.data[0].numberOfSponsored,
           paymentMethod: res.data.data[0].paymentMethod,
@@ -76,17 +76,23 @@ class PrintPage extends React.Component {
         headers: { Authorization: "Bearer " + localStorage.getItem("jwtToken") }
       }
     ).then(res => {
-      // console.log(res);
+      console.log(res);
       this.setState({
-        orphanName: res.data.data[0].orphanName,
-        orphanSex: res.data.data[0].orphanSex,
-        orphanNationality: res.data.data[0].orphanNationality,
-        orphanDateOfBirth: res.data.data[0].orphanDateOfBirth,
-        placeOfBirth: res.data.data[0].placeOfBirth,
-        orphanHealth: res.data.data[0].orphanHealth,
-        notes: res.data.data[0].notes,
-        fatherDeathDate: res.data.data[0].fatherDeathDate,
-        orphanFamilyId: res.data.data[0].orphanFamilyId
+        orphanName: res.data.data[0] ? res.data.data[0].orphanName : "",
+        orphanSex: res.data.data[0] ? res.data.data[0].orphanSex : "",
+        orphanNationality: res.data.data[0]
+          ? res.data.data[0].orphanNationality
+          : "",
+        orphanDateOfBirth: res.data.data[0]
+          ? res.data.data[0].orphanDateOfBirth
+          : "",
+        placeOfBirth: res.data.data[0] ? res.data.data[0].placeOfBirth : "",
+        orphanHealth: res.data.data[0] ? res.data.data[0].orphanHealth : "",
+        notes: res.data.data[0] ? res.data.data[0].notes : "",
+        fatherDeathDate: res.data.data[0]
+          ? res.data.data[0].fatherDeathDate
+          : "",
+        orphanFamilyId: res.data.data[0] ? res.data.data[0].orphanFamilyId : ""
       });
     });
 
@@ -96,7 +102,7 @@ class PrintPage extends React.Component {
         headers: { Authorization: "Bearer " + localStorage.getItem("jwtToken") }
       }
     ).then(res => {
-      console.log(res);
+      // console.log(res);
       this.setState({
         motherName: res.data.data[0].motherName,
         motherJob: res.data.data[0].motherJob,
