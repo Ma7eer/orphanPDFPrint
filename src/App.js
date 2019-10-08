@@ -71,12 +71,12 @@ class PrintPage extends React.Component {
       .catch(err => console.log(err));
 
     await Axios.get(
-      `https://dashboard.alrahma-baraka.com:5001/orphans/${this.state.orphanId}`,
+      `https://dashboard.alrahma-baraka.com:5001/orphans/getOne/${this.state.orphanId}`,
       {
         headers: { Authorization: "Bearer " + localStorage.getItem("jwtToken") }
       }
     ).then(res => {
-      console.log(res);
+      // console.log(res);
       this.setState({
         orphanName: res.data.data[0] ? res.data.data[0].orphanName : "",
         orphanSex: res.data.data[0] ? res.data.data[0].orphanSex : "",
