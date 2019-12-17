@@ -4,6 +4,20 @@ import Axios from "axios";
 // import "./styles.css";
 import ReactToPrint from "react-to-print";
 
+const getDate = cellValue => {
+  // formio date input returns a string with date and time
+  // this function converts that to a time only string
+  // this function also checks if the string is already formatted correctly
+  // in that case we return the string in an array
+  let removeTimeRegex = /[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])/;
+  let formattedDate = cellValue
+    ? cellValue.match(removeTimeRegex) == null
+      ? [cellValue]
+      : cellValue.match(removeTimeRegex)
+    : [""];
+  return formattedDate[0];
+};
+
 var getParams = function(url) {
   var params = {};
   var parser = document.createElement("a");
@@ -16,7 +30,7 @@ var getParams = function(url) {
   }
   return params;
 };
-console.log(getParams(window.location.href));
+// console.log(getParams(window.location.href));
 
 class PrintPage extends React.Component {
   state = {
@@ -57,6 +71,9 @@ class PrintPage extends React.Component {
       }
     )
       .then(res => {
+        // console.log(typeof res.data.data[0].startDate);
+        // let x = getDate(res.data.data[0].startDate);
+        // // console.log("x", x);
         // console.log(res);
         this.setState({
           numberOfSponsored: res.data.data[0].numberOfSponsored,
@@ -65,7 +82,7 @@ class PrintPage extends React.Component {
           sponsorName: res.data.data[0].sponsorName,
           sponsorNationality: res.data.data[0].sponsorNationality,
           sponsorPhone: res.data.data[0].sponsorPhone,
-          startDate: res.data.data[0].startDate
+          startDate: getDate(res.data.data[0].startDate)
         });
       })
       .catch(err => console.log(err));
@@ -84,13 +101,13 @@ class PrintPage extends React.Component {
           ? res.data.data[0].orphanNationality
           : "",
         orphanDateOfBirth: res.data.data[0]
-          ? res.data.data[0].orphanDateOfBirth
+          ? getDate(res.data.data[0].orphanDateOfBirth)
           : "",
         placeOfBirth: res.data.data[0] ? res.data.data[0].placeOfBirth : "",
         orphanHealth: res.data.data[0] ? res.data.data[0].orphanHealth : "",
         notes: res.data.data[0] ? res.data.data[0].notes : "",
         fatherDeathDate: res.data.data[0]
-          ? res.data.data[0].fatherDeathDate
+          ? getDate(res.data.data[0].fatherDeathDate)
           : "",
         orphanFamilyId: res.data.data[0] ? res.data.data[0].orphanFamilyId : ""
       });
@@ -117,6 +134,7 @@ class PrintPage extends React.Component {
   }
 
   render() {
+    // console.log(this.state.startDate);
     return (
       <div dir="rtl">
         <meta httpEquiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -645,6 +663,7 @@ class PrintPage extends React.Component {
               type="text"
               value={this.state.paymentMethod}
               className="cls_010"
+              // onChange={() => this.state.paymentMethod}
               style={{ width: "150px", border: "none", color: "blue" }}
             />
           </div>
@@ -681,6 +700,7 @@ class PrintPage extends React.Component {
               type="text"
               value={this.state.startDate}
               className="cls_010"
+              onChange={e => this.setState({ startDate: e.target.value })}
               style={{ width: "120px", border: "none", color: "blue" }}
             />
           </div>
