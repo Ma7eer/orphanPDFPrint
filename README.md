@@ -2,7 +2,7 @@
 
 Print page for a form for the orphan department at al rahma non profit organization. The current page relies on the main Al Rahma application to sent it data so it can fill the rest of the data in.
 
-![print page]()
+![print page](https://github.com/Ma7eer/orphanPDFPrint/blob/master/public/screenshot.PNG)
 
 ## Installation
 
