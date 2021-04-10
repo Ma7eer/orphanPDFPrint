@@ -29,7 +29,6 @@ var getParams = function(url) {
   }
   return params;
 };
-// console.log(getParams(window.location.href));
 
 class PrintPage extends React.Component {
   state = {
@@ -794,7 +793,7 @@ export default class App extends React.Component {
     return (
       <>
         <ReactToPrint
-          trigger={() => <a href="#">طباعة</a>}
+          trigger={() => <a href="http://#">طباعة</a>}
           content={() => this.componentRef}
         />
         <PrintPage ref={el => (this.componentRef = el)} />
