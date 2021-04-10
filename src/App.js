@@ -1,7 +1,6 @@
 import React from "react";
 import Background from "./background1.jpg";
 import Axios from "axios";
-// import "./styles.css";
 import ReactToPrint from "react-to-print";
 
 const getDate = cellValue => {
@@ -65,7 +64,7 @@ class PrintPage extends React.Component {
 
   async componentWillMount() {
     await Axios.get(
-      `https://dashboard.alrahma-baraka.com:5001/orphanSponsors/${this.state.sponsorId}`,
+      `https://dashboard.alrahma-baraka.com/api/orphanSponsors/${this.state.sponsorId}`,
       {
         headers: { Authorization: "Bearer " + localStorage.getItem("jwtToken") }
       }
@@ -88,7 +87,7 @@ class PrintPage extends React.Component {
       .catch(err => console.log(err));
 
     await Axios.get(
-      `https://dashboard.alrahma-baraka.com:5001/orphans/getOne/${this.state.orphanId}`,
+      `https://dashboard.alrahma-baraka.com/api/orphans/getOne/${this.state.orphanId}`,
       {
         headers: { Authorization: "Bearer " + localStorage.getItem("jwtToken") }
       }
@@ -114,7 +113,7 @@ class PrintPage extends React.Component {
     });
 
     await Axios.get(
-      `https://dashboard.alrahma-baraka.com:5001/orphanFamily/getOne/${this.state.orphanFamilyId}`,
+      `https://dashboard.alrahma-baraka.com/api/orphanFamily/getOne/${this.state.orphanFamilyId}`,
       {
         headers: { Authorization: "Bearer " + localStorage.getItem("jwtToken") }
       }
